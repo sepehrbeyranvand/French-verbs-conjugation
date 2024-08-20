@@ -32,6 +32,7 @@ export default function Conjugation({ darkMode }) {
     { label: "Participe présent", value: "participe-présent" },
     { label: "Participe passé", value: "participe-passé" },
   ];
+  
 
   const clicka = () => {
     if (data === "" || selectedTense === "") {
@@ -70,7 +71,7 @@ export default function Conjugation({ darkMode }) {
         </div>
         <div className="w-full flex justify-center gap-4">
           <select
-            className="lg:w-[15%] sm:w-[30%] p-1 rounded-sm outline-none focus:ring-2"
+            className="lg:w-[15%] cursor-pointer sm:w-[30%] p-2 rounded-sm outline-none focus:ring-2"
             value={selectedTense}
             onChange={(e) => setSelectedTense(e.target.value)}
           >
@@ -126,7 +127,9 @@ export default function Conjugation({ darkMode }) {
       <div className="flex justify-center">
         <table className="table-auto rounded-md w-[50%] text-left">
           <thead>
-            <th className="py-2">{selectedTense}</th>
+            <th className={darkMode ? `text-white py-2` : `py-2`}>
+              {selectedTense}
+            </th>
           </thead>
           <tbody>
             {items ? (
