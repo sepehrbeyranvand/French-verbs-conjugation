@@ -1,5 +1,7 @@
 import { useState } from "react";
 import conjugationFR from "conjugation-fr";
+import Swal from "sweetalert2";
+
 export default function Conjugation({ darkMode }) {
   const [data, setData] = useState("");
   const [selectedTense, setSelectedTense] = useState("");
@@ -33,13 +35,17 @@ export default function Conjugation({ darkMode }) {
 
   const clicka = () => {
     if (data === "" || selectedTense === "") {
-      alert("Make sure that the inputs are filled!");
+      Swal.fire("Error", "Make sure that the inputs are filled!", "error");
     } else {
-      const conj = conjugationFR.findTense(data, selectedTense);
-      if (conj === null || conj === undefined) {
-        alert("Unable to find verb '" + data + "'");
-      } else {
-        setItems(conj);
+      try {
+        const conj = conjugationFR.findTense(data, selectedTense);
+        if (conj === null || conj === undefined) {
+          Swal.fire("Error", 'Unable to find verb "' + data + '"', "error");
+        } else {
+          setItems(conj);
+        }
+      } catch (error) {
+        Swal.fire("Error", error.message, "error");
       }
     }
   };
