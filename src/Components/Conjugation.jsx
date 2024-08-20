@@ -36,7 +36,11 @@ export default function Conjugation({ darkMode }) {
       alert("Make sure that the inputs are filled!");
     } else {
       const conj = conjugationFR.findTense(data, selectedTense);
-      setItems(conj);
+      if (conj === null || conj === undefined) {
+        alert("Unable to find verb '" + data + "'");
+      } else {
+        setItems(conj);
+      }
     }
   };
 
