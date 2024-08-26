@@ -7,6 +7,7 @@ export default function Conjugation({ darkMode }) {
   const [selectedTense, setSelectedTense] = useState("");
   const [keyboard, setKeyboard] = useState(false);
   const [items, setItems] = useState([]);
+  const [wrongVerb, setWrongVerb] = useState(0);
 
   const tenses = [
     { label: "Choose one", value: "Choose one" },
@@ -32,7 +33,6 @@ export default function Conjugation({ darkMode }) {
     { label: "Participe présent", value: "participe-présent" },
     { label: "Participe passé", value: "participe-passé" },
   ];
-  
 
   const clicka = () => {
     if (data === "" || selectedTense === "") {
@@ -46,7 +46,19 @@ export default function Conjugation({ darkMode }) {
           setItems(conj);
         }
       } catch (error) {
-        Swal.fire("Error", error.message, "error");
+        if (wrongVerb < 3) {
+          Swal.fire("Error", error.message, "error");
+          setWrongVerb(wrongVerb + 1);
+          console.log(wrongVerb);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: 'Unable to find verb "' + data + '"',
+            footer:
+              '<a href="https://t.me/its_sepehrb" target="_blank">Do You Need Help? Contact Me</a>',
+          });
+        }
       }
     }
   };
@@ -91,25 +103,25 @@ export default function Conjugation({ darkMode }) {
           {keyboard && (
             <div className="flex gap-3">
               <button
-                className="text-white size-8 rounded-md  bg-[#445760]"
+                className="text-white size-8 rounded-md  bg-[#445760] hover:bg-[#445790] transition-all .4s ease-linear duration-200"
                 onClick={() => setData(data + "ê")}
               >
                 ê
               </button>
               <button
-                className="text-white size-8 rounded-md  bg-[#445760]"
+                className="text-white size-8 rounded-md  bg-[#445760] hover:bg-[#445790] transition-all .4s ease-linear duration-200"
                 onClick={() => setData(data + "è")}
               >
                 è
               </button>
               <button
-                className="text-white size-8 rounded-md bg-[#445760]"
+                className="text-white size-8 rounded-md bg-[#445760] hover:bg-[#445790] transition-all .4s ease-linear duration-200"
                 onClick={() => setData(data + "é")}
               >
                 é
               </button>
               <button
-                className="text-white size-8 rounded-md bg-[#445760]"
+                className="text-white size-8 rounded-md bg-[#445760] hover:bg-[#445790] transition-all .4s ease-linear duration-200"
                 onClick={() => setData(data + "ç")}
               >
                 ç
@@ -118,7 +130,10 @@ export default function Conjugation({ darkMode }) {
                 className="size-8 rounded-md"
                 onClick={() => setKeyboard(!keyboard)}
               >
-                <i className="fa fa-close"></i>
+                <i
+                  className="fa fa-close"
+                  style={darkMode ? { color: "white" } : { color: "black" }}
+                ></i>
               </button>
             </div>
           )}
