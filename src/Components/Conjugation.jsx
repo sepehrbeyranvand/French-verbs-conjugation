@@ -49,14 +49,13 @@ export default function Conjugation({ darkMode }) {
         if (wrongVerb < 3) {
           Swal.fire("Error", error.message, "error");
           setWrongVerb(wrongVerb + 1);
-          console.log(wrongVerb);
         } else {
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: 'Unable to find verb "' + data + '"',
             footer:
-              '<a href="https://t.me/its_sepehrb" target="_blank">Do You Need Help? Contact Me</a>',
+              '<a style="color:blue" href="https://t.me/its_sepehrb" target="_blank">Do You Need Help? Contact Me</a>',
           });
         }
       }
@@ -74,7 +73,7 @@ export default function Conjugation({ darkMode }) {
             <i className="fa fa-search"></i>
           </button>
           <input
-            className="bg-white p-2 lg:w-[50%] sm:w-[65%] outline-none rounded-s-md focus:ring-2"
+            className="bg-white p-2 lg:w-[50%] sm:w-[65%] outline-none rounded-s-md focus:ring-2 transition-all .5s ease-linear duration-200"
             placeholder="Write a verb such as Aller , Manger and etc."
             type="text"
             value={data}
@@ -83,7 +82,7 @@ export default function Conjugation({ darkMode }) {
         </div>
         <div className="w-full flex justify-center gap-4">
           <select
-            className="lg:w-[15%] cursor-pointer sm:w-[30%] p-2 rounded-sm outline-none focus:ring-2"
+            className="lg:w-[15%] cursor-pointer sm:w-[30%] p-2 rounded-sm outline-none focus:ring-2 transition-all .3s ease-linear duration-200"
             value={selectedTense}
             onChange={(e) => setSelectedTense(e.target.value)}
           >
