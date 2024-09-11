@@ -36,7 +36,7 @@ export default function Conjugation({ darkMode }) {
 
   const clicka = () => {
     if (data === "" || selectedTense === "") {
-      Swal.fire("Error", "Make sure that the inputs are filled!", "error");
+      Swal.fire("warning", "Make sure that the inputs are filled!", "warning");
     } else {
       try {
         const conj = conjugationFR.findTense(data, selectedTense);
@@ -55,7 +55,7 @@ export default function Conjugation({ darkMode }) {
             title: "Oops...",
             text: 'Unable to find verb "' + data + '"',
             footer:
-              '<a style="color:blue" href="https://t.me/its_sepehrb" target="_blank">Do You Need Help? Contact Me</a>',
+              '<a class="text-[#007BFF]" href="mailto: sepehr7797@gmail.com">Do You Need Help? Contact Me</a>',
           });
         }
       }
