@@ -1,6 +1,7 @@
 import { useState } from "react";
 import conjugationFR from "conjugation-fr";
 import Swal from "sweetalert2";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Conjugation({ darkMode }) {
   const [data, setData] = useState("");
@@ -63,7 +64,7 @@ export default function Conjugation({ darkMode }) {
   };
 
   return (
-    <div className="flex mt-[10vh] min-h-screen flex-col gap-6 p-4 w-full">
+    <div className="flex mt-[10vh] min-h-screen flex-col gap-6 p-4 w-full overflow-x-hidden">
       <div className="flex flex-col gap-4 justify-center items-center">
         <div className="flex w-full justify-center flex-row-reverse">
           <button
@@ -164,6 +165,14 @@ export default function Conjugation({ darkMode }) {
             )}
           </tbody>
         </table>
+      </div>
+      <div>
+        <a
+          href="/word"
+          className="bg-purple-600 hover:bg-purple-700 transition-all .5s ease-in-out duration-200 float-right text-white p-2 rounded-s-lg relative top-[0] -right-5 w-16"
+        >
+        Word
+        </a>
       </div>
     </div>
   );

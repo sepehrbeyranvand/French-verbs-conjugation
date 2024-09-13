@@ -31,6 +31,7 @@ function App() {
         </Routes>
     </Router>
       </div>
+      
       <div>
         <Footer darkMode={darkMode}/>
       </div>
