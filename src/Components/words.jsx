@@ -1,16 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // VocabularyCard component to display each vocabulary word and its details
-const VocabularyCard = ({ word, meaning, difficulty, onDelete, onEdit }) => {
+const VocabularyCard = ({
+  word,
+  number,
+  meaning,
+  difficulty,
+  onDelete,
+  onEdit,
+}) => {
+  const [hideit, sethideit] = useState(true);
   return (
-    <div className="bg-white rounded-lg shadow-lg p-4 mb-4 transition-transform transform hover:scale-105">
-      <h3 className="text-xl font-bold mb-2 text-blue-600">Word: {word}</h3>
-      <p className="text-gray-700 mb-4">Meaning: {meaning}</p>
+    <div className="bg-white rounded-lg shadow-lg p-4 mb-4 lg:w-[40%] transition-transform transform hover:scale-105">
+      <div className="flex justify-between">
+        <h3 className="text-xl font-bold mb-2 text-blue-800">Word: {word}</h3>
+        <p>#{number}</p>
+      </div>
+      <div className="flex justify-start items-center gap-x-2 mb-4">
+        <p
+          style={hideit ? { visibility: "hidden" } : { visibility: "visible" }}
+          className="text-gray-700  italic"
+        >
+          Meaning: {meaning}
+        </p>
+        <button
+          className="cursor-pointer text-sm"
+          onClick={() => sethideit(!hideit)}
+        >
+          {hideit && (
+            <div className="flex justify-start relative top-0 right-24 items-center flex-row-reverse gap-x-2">
+              <i className="fa fa-eye flex flex-row-reverse gap-x-1"></i>
+              <p className="sm:text-xs lg:text-sm w-full">Show The Meaning</p>
+            </div>
+          )}
+          {!hideit && <i className="fa fa-eye-slash"></i>}
+        </button>
+      </div>
       <div className="flex items-center space-x-2 mb-4">
         <label className="flex items-center space-x-1">
           <input
             type="checkbox"
-            checked={difficulty === 'easy'}
+            checked={difficulty === "easy"}
             readOnly
             className="form-checkbox h-4 w-4 text-blue-600"
           />
@@ -19,7 +49,7 @@ const VocabularyCard = ({ word, meaning, difficulty, onDelete, onEdit }) => {
         <label className="flex items-center space-x-1">
           <input
             type="checkbox"
-            checked={difficulty === 'medium'}
+            checked={difficulty === "medium"}
             readOnly
             className="form-checkbox h-4 w-4 text-blue-600"
           />
@@ -28,7 +58,7 @@ const VocabularyCard = ({ word, meaning, difficulty, onDelete, onEdit }) => {
         <label className="flex items-center space-x-1">
           <input
             type="checkbox"
-            checked={difficulty === 'hard'}
+            checked={difficulty === "hard"}
             readOnly
             className="form-checkbox h-4 w-4 text-blue-600"
           />
@@ -55,22 +85,22 @@ const VocabularyCard = ({ word, meaning, difficulty, onDelete, onEdit }) => {
 
 // Main VocabularyApp component
 const VocabularyApp = () => {
-  const [vocab, setVocab] = useState(''); // State for vocabulary word input
-  const [meaning, setMeaning] = useState(''); // State for meaning input
-  const [difficulty, setDifficulty] = useState('easy'); // State for difficulty level
+  const [vocab, setVocab] = useState(""); // State for vocabulary word input
+  const [meaning, setMeaning] = useState(""); // State for meaning input
+  const [difficulty, setDifficulty] = useState("easy"); // State for difficulty level
   const [vocabList, setVocabList] = useState([]); // State for the list of vocabulary words
   const [editingIndex, setEditingIndex] = useState(null); // State for tracking which item is being edited
 
   // Load vocabulary from local storage when the component mounts
   useEffect(() => {
-    const storedVocabList = JSON.parse(localStorage.getItem('vocabList')) || [];
+    const storedVocabList = JSON.parse(localStorage.getItem("vocabList")) || [];
     setVocabList(storedVocabList);
   }, []);
 
   // Function to save the vocabulary word and meaning
   const saveVocab = () => {
-    if (vocab.trim() === '' || meaning.trim() === '') {
-      alert('Please enter a vocabulary word and meaning.');
+    if (vocab.trim() === "" || meaning.trim() === "") {
+      alert("Please enter a vocabulary word and meaning.");
       return;
     }
 
@@ -88,7 +118,7 @@ const VocabularyApp = () => {
       setVocabList(updatedVocabList); // Update state
     }
 
-    localStorage.setItem('vocabList', JSON.stringify(vocabList)); // Save to local storage
+    localStorage.setItem("vocabList", JSON.stringify(vocabList)); // Save to local storage
     resetFields(); // Clear input fields
   };
 
@@ -96,7 +126,7 @@ const VocabularyApp = () => {
   const deleteVocab = (index) => {
     const updatedVocabList = vocabList.filter((_, i) => i !== index); // Filter out the deleted item
     setVocabList(updatedVocabList); // Update state
-    localStorage.setItem('vocabList', JSON.stringify(updatedVocabList)); // Update local storage
+    localStorage.setItem("vocabList", JSON.stringify(updatedVocabList)); // Update local storage
   };
 
   // Function to start editing a vocabulary item
@@ -110,19 +140,20 @@ const VocabularyApp = () => {
 
   // Function to reset input fields
   const resetFields = () => {
-    setVocab('');
-    setMeaning('');
-    setDifficulty('easy');
+    setVocab("");
+    setMeaning("");
+    setDifficulty("easy");
     setEditingIndex(null);
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Vocabulary App</h1>
-      <div className="mb-4 flex flex-col sm:flex-row">
+    <div className="container mx-auto p-4 min-h-screen sm:flex flex-col justify-center items-center lg:w-full sm:w-[30vh]">
+      <div className="mb-4 flex flex-col lg:flex-row lg:min-w-full sm:w-[40vh]">
         {/* Input for vocabulary word */}
-        <div className="mb-2 sm:mb-0 sm:mr-2 w-full sm:w-1/4">
-          <label className="block text-gray-700 font-semibold mb-1">Word:</label>
+        <div className="mb-2 sm:mb-0 sm:mr-2 w-full">
+          <label className="block text-gray-700 font-semibold mb-1">
+            Word:
+          </label>
           <input
             type="text"
             placeholder="Enter vocabulary word"
@@ -132,8 +163,10 @@ const VocabularyApp = () => {
           />
         </div>
         {/* Input for meaning */}
-        <div className="mb-2 sm:mb-0 sm:mr-2 w-full sm:w-1/4">
-          <label className="block text-gray-700 font-semibold mb-1">Meaning:</label>
+        <div className="mb-2 sm:mb-0 sm:mr-2 w-full">
+          <label className="block text-gray-700 font-semibold mb-1">
+            Meaning:
+          </label>
           <input
             type="text"
             placeholder="Enter meaning"
@@ -143,8 +176,10 @@ const VocabularyApp = () => {
           />
         </div>
         {/* Dropdown for selecting difficulty */}
-        <div className="mb-2 sm:mb-0 sm:mr-2 w-full sm:w-1/4">
-          <label className="block text-gray-700 font-semibold mb-1">Difficulty:</label>
+        <div className="mb-2 sm:mb-0 sm:mr-2 w-full">
+          <label className="block text-gray-700 font-semibold mb-1">
+            Difficulty:
+          </label>
           <select
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
@@ -159,20 +194,21 @@ const VocabularyApp = () => {
         <div className="w-full sm:w-auto">
           <button
             onClick={saveVocab}
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 w-full"
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 w-full lg:relative lg:top-[1.7em]"
           >
-            {editingIndex !== null ? 'Update' : 'Save'}
+            {editingIndex !== null ? "Update" : "Save"}
           </button>
         </div>
       </div>
       {/* Render the list of vocabulary cards */}
-      <div className='flex justify-around items-center p-[6em]'>
+      <div className="flex justify-around lg:flex-row flex-wrap lg:items-center sm:items-start sm:flex-col p-[6em]">
         {vocabList.map((vocab, index) => (
           <VocabularyCard
             key={index}
             word={vocab.word}
             meaning={vocab.meaning}
             difficulty={vocab.difficulty}
+            number={index + 1}
             onDelete={() => deleteVocab(index)} // Pass delete function
             onEdit={() => editVocab(index)} // Pass edit function
           />
