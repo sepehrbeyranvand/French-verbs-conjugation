@@ -100,27 +100,31 @@ const VocabularyApp = () => {
   // Function to save the vocabulary word and meaning
   const saveVocab = () => {
     if (vocab.trim() === "" || meaning.trim() === "") {
-      alert("Please enter a vocabulary word and meaning.");
-      return;
+        alert("Please enter a vocabulary word and meaning.");
+        return;
     }
 
     const newVocab = { word: vocab, meaning, difficulty }; // Create a new vocabulary object
 
+    let updatedVocabList; // Declare updatedVocabList outside
+
     if (editingIndex !== null) {
-      // If editing, update the existing item
-      const updatedVocabList = vocabList.map((item, index) =>
-        index === editingIndex ? newVocab : item
-      );
-      setVocabList(updatedVocabList); // Update state
+        // If editing, update the existing item
+        updatedVocabList = vocabList.map((item, index) =>
+            index === editingIndex ? newVocab : item
+        );
     } else {
-      // If not editing, add a new item
-      const updatedVocabList = [...vocabList, newVocab]; // Update the vocabulary list
-      setVocabList(updatedVocabList); // Update state
+        // If not editing, add a new item
+        updatedVocabList = [...vocabList, newVocab]; // Update the vocabulary list
     }
 
-    localStorage.setItem("vocabList", JSON.stringify(vocabList)); // Save to local storage
+    setVocabList(updatedVocabList); // Update state
+
+    // Save the updated list to localStorage AFTER updating the state
+    localStorage.setItem("vocabList", JSON.stringify(updatedVocabList)); 
+
     resetFields(); // Clear input fields
-  };
+};
 
   // Function to delete a vocabulary item
   const deleteVocab = (index) => {

@@ -11,7 +11,7 @@ export default function Conjugation({ darkMode }) {
   const [wrongVerb, setWrongVerb] = useState(0);
 
   const tenses = [
-    { label: "Choose one", value: "Choose one" },
+    { label: "Les Temps", value: "Les Temps" },
     { label: "Présent", value: "présent" },
     { label: "Futur", value: "futur" },
     { label: "Passé composé", value: "passé-composé" },
@@ -75,7 +75,7 @@ export default function Conjugation({ darkMode }) {
           </button>
           <input
             className="bg-white p-2 lg:w-[50%] sm:w-[65%] outline-none rounded-s-md focus:ring-2 transition-all .5s ease-linear duration-200"
-            placeholder="Write a verb such as Aller , Manger and etc."
+            placeholder="Écrivez le verbe comme Aller, Manger, Boire, etc"
             type="text"
             value={data}
             onChange={(e) => setData(e.target.value)}
@@ -127,6 +127,12 @@ export default function Conjugation({ darkMode }) {
                 ç
               </button>
               <button
+                className="text-white size-8 rounded-md bg-[#445760] hover:bg-[#445790] transition-all .4s ease-linear duration-200"
+                onClick={() => setData(data + "ô")}
+              >
+                ô
+              </button>
+              <button
                 className="size-8 rounded-md"
                 onClick={() => setKeyboard(!keyboard)}
               >
@@ -171,7 +177,7 @@ export default function Conjugation({ darkMode }) {
           href="/word"
           className="bg-purple-600 hover:bg-purple-700 transition-all .5s ease-in-out duration-200 float-right text-white p-2 rounded-s-lg relative top-[0] -right-5 w-16"
         >
-        Word
+          Mots
         </a>
       </div>
     </div>
